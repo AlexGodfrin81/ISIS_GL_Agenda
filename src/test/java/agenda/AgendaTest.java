@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,5 +52,30 @@ public class AgendaTest {
     public void testMultipleEventsInDay() {
         assertEquals(4, agenda.eventsInDay(nov_1_2020).size(), "Il y a 4 événements ce jour là");
         assertTrue(agenda.eventsInDay(nov_1_2020).contains(neverEnding));
+    }
+    
+    @Test
+    public void testFindByTitle() {
+        List<Event> ListeEvent = agenda.findByTitle("Simple event");
+        assertTrue(ListeEvent.size()==1);
+        ListeEvent = agenda.findByTitle("viejviorjv");
+        assertTrue(ListeEvent.isEmpty());
+        ListeEvent = agenda.findByTitle("Fixed"); 
+        // j'ai implémenté findByTitle pour qu'il donne les events avec le même nom,
+        //pas lorsqu'ils contiennent le string donc size = 0 normalement.
+        assertTrue(ListeEvent.isEmpty());
+    }
+    
+    @Test
+    public void testIsFreeFor(){
+        assertFalse(agenda.isFreeFor(simple));
+        Duration min_1 = Duration.ofMinutes(1);
+        LocalDateTime nov_1__2020_12_30 = LocalDateTime.of(2020, 11, 1, 12, 30);
+        Event simple1 = new Event("Simple event1", nov_1__2020_22_30, min_1);
+        Event simple2 = new Event("Simple event2", nov_1__2020_12_30, min_120);
+        assertFalse(agenda.isFreeFor(simple1));
+        assertTrue(agenda.isFreeFor(simple2));
+        agenda.addEvent(simple2);
+        assertFalse(agenda.isFreeFor(simple2));
     }
 }

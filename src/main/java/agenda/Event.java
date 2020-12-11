@@ -47,25 +47,6 @@ public class Event {
                 || aDay.isEqual(ChronoLocalDate.from(this.myStart.plus(this.myDuration))) 
                 || (aDay.isAfter(ChronoLocalDate.from(this.myStart)) 
                     && aDay.isBefore(ChronoLocalDate.from(this.myStart.plus(this.myDuration)))));
-        
-        /*ArrayList<LocalDate> dureeEvent=new ArrayList();
-        int year=myStart.getYear();
-        int month=myStart.getMonthValue();
-        int dayOfMonth=myStart.getDayOfMonth();
-        long hours=myStart.getHour();
-        long minutes=myStart.getMinute();
-
-        LocalDate date=LocalDate.of(year,month,dayOfMonth);
-        date.isBefore(date.plus(myDuration));
-        dureeEvent.add(date);
-        long duree=myDuration.toMinutes();
-        date=date.plus(duree,ChronoUnit.MINUTES);
-        dureeEvent.add(date);
-        
-        if(dureeEvent.contains(aDay)){
-            return true;
-        }
-        return false;*/
     }
    
     /**
